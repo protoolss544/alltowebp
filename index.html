@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>PNG/JPG/JPEG to WebP Converter | Free Online Image Converter</title>
+  <title>PNG/JPG/JPEG to WebP Converter | Free Online Image Converter | Protoolss</title>
   <meta name="description" content="Convert PNG, JPG, JPEG images to WebP format instantly in your browser. Batch convert, download all as ZIP, drag & drop, quality control." />
-  <meta name="keywords" content="webp converter, png to webp, jpg to webp, jpeg to webp, image converter, batch convert, free, offline" />
-  <link rel="canonical" href="https://yourdomain.com/index.html" />
+  <meta name="keywords" content="webp converter, png to webp, jpg to webp, jpeg to webp, image converter, batch convert, free, offline | Protoolss" />
+  <link rel="canonical" href="https://protoolss.online/index.html" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
@@ -79,16 +79,20 @@
       scroll-behavior: smooth;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: #f4f6fe;
       color: #1e1e2f;
       transition: background 0.3s, color 0.3s;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       padding-top: 80px;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     body.dark {
@@ -101,7 +105,7 @@
       width: 100%;
       margin: 0 auto;
       padding: 0 28px;
-      flex: 1;
+      flex: 1 0 auto;
     }
 
     /* ===== NAVIGATION (from protoolss.online) ===== */
@@ -334,15 +338,16 @@
       color: #a78bfa;
     }
 
-    /* ===== FOOTER (from protoolss.online) ===== */
+    /* ===== FOOTER - FIXED AT BOTTOM ON MOBILE ===== */
     footer {
-      margin-top: 60px;
-      padding: 30px 0;
+      margin-top: 40px;
+      padding: 20px 0;
       background: linear-gradient(145deg, #1a1a2e, #16213e);
       color: #e0e0e0;
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       width: 100%;
+      flex-shrink: 0;
     }
 
     .footer-content {
@@ -392,7 +397,7 @@
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
     }
 
-    /* ===== UPLOAD BOX ===== */
+    /* ===== UPLOAD BOX - FIXED SIZE ===== */
     .upload-box {
       padding: 40px 20px;
       text-align: center;
@@ -402,7 +407,13 @@
       transition: 0.25s;
       cursor: pointer;
       position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
+
     .upload-box.drag-over {
       border-color: #6e3bff;
       background: rgba(110, 59, 255, 0.06);
@@ -588,6 +599,11 @@
       to { transform: rotate(360deg); }
     }
 
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
     .btn-loading {
       pointer-events: none;
       opacity: 0.8;
@@ -630,6 +646,7 @@
       padding: 8px;
       margin-bottom: 14px;
       flex-wrap: wrap;
+      min-height: 100px;
     }
     body.dark .card-img-wrap {
       background: rgba(255, 255, 255, 0.04);
@@ -795,6 +812,7 @@
       }
       .app-container {
         padding: 0 14px;
+        flex: 1 0 auto;
       }
       nav {
         padding: 10px 0;
@@ -837,12 +855,19 @@
         font-size: 0.9rem;
       }
 
+      /* Footer fixed at bottom on mobile */
       footer {
-        padding: 20px 0;
+        margin-top: 20px;
+        padding: 14px 0;
+        flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
       }
+
       .footer-powered {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
+
       .grid {
         grid-template-columns: 1fr;
       }
@@ -855,7 +880,8 @@
         width: 100px;
       }
       .upload-box {
-        padding: 30px 16px;
+        padding: 28px 16px;
+        min-height: 160px;
       }
       .upload-box i {
         font-size: 2.5rem;
@@ -903,6 +929,25 @@
         padding: 8px 16px;
         font-size: 0.85rem;
       }
+      .upload-box {
+        padding: 20px 12px;
+        min-height: 140px;
+      }
+      .upload-box i {
+        font-size: 2rem;
+      }
+      .upload-box h3 {
+        font-size: 0.95rem;
+      }
+      .upload-box p {
+        font-size: 0.8rem;
+      }
+      footer {
+        padding: 10px 0;
+      }
+      .footer-powered {
+        font-size: 0.75rem;
+      }
     }
 
     @media (max-width: 360px) {
@@ -938,6 +983,11 @@
         right: 0;
         left: auto;
         border-radius: 0 0 16px 16px;
+      }
+      /* Footer not sticky on desktop */
+      footer {
+        position: relative;
+        bottom: auto;
       }
     }
 
@@ -1139,7 +1189,6 @@
         }
         isConverting = true;
         convertAllBtn.disabled = true;
-        // Add loading animation
         convertAllBtn.innerHTML = '<span class="loading-spinner"></span> Converting...';
         convertAllBtn.classList.add('btn-loading');
 
@@ -1166,19 +1215,6 @@
         render();
         updateConvertAllButton();
         showToast('Image removed', 'success');
-      }
-
-      // ----- REMOVE ALL -----
-      function removeAll() {
-        if (imageItems.length === 0) return;
-        imageItems.forEach(item => {
-          if (item.originalUrl) URL.revokeObjectURL(item.originalUrl);
-          if (item.convertedUrl) URL.revokeObjectURL(item.convertedUrl);
-        });
-        imageItems = [];
-        render();
-        updateConvertAllButton();
-        showToast('All images removed', 'success');
       }
 
       // ----- UPDATE CONVERT ALL BUTTON -----
@@ -1220,7 +1256,6 @@
             height: 0,
             status: 'idle',
           };
-          // Get dimensions
           const img = new Image();
           img.onload = () => {
             item.width = img.width;
@@ -1259,7 +1294,7 @@
               <div class="card-img-wrap">
                 <img src="${item.originalUrl}" alt="${item.name}" loading="lazy">
                 ${isConverted ? `<img src="${item.convertedUrl}" alt="converted" loading="lazy">` : ''}
-                ${isConverting ? '<div style="position:relative; display:flex; align-items:center; justify-content:center; min-height:80px;"><span class="loading-spinner" style="border-color:rgba(110,59,255,0.2); border-top-color:#6e3bff; width:30px; height:30px;"></span></div>' : ''}
+                ${isConverting ? '<div style="display:flex; align-items:center; justify-content:center; min-height:80px;"><span class="loading-spinner" style="border-color:rgba(110,59,255,0.2); border-top-color:#6e3bff; width:30px; height:30px;"></span></div>' : ''}
               </div>
               <div class="card-info">
                 <div class="name" title="${item.name}">${item.name}</div>
@@ -1279,7 +1314,6 @@
         }
         grid.innerHTML = html;
 
-        // Attach events
         grid.querySelectorAll('.download-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             const id = Number(btn.dataset.id);
